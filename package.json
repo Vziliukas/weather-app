@@ -20,7 +20,7 @@
     "styled-components": "^4.3.2"
   },
   "scripts": {
-    "start": "REACT_APP_API_KEY='d4e0457912afe0303e1b68a724113232' react-scripts start",
+    "start": "REACT_APP_API_KEY='' react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

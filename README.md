@@ -1,4 +1,6 @@
-Before run app need to add Dark Sky api key to process.env.REACT_APP_API_KEY variable
+Before run app need to add Dark Sky api key to process.env.REACT_APP_API_KEY variable. Should add it to package.json file:
+
+"start": "REACT_APP_API_KEY=${API_KEY} react-scripts start",
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
