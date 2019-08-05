@@ -29,8 +29,7 @@ export const setWeather = (options) => (dispatch) => {
 
 export const clearWeather = () => (dispatch) => {
     dispatch({
-        type: ACTION_TYPES.SET_SELECTED_WEATHER,
-        payload: null,
+        type: ACTION_TYPES.CLEAR_SELECTED_WEATHER,
     });
 }
 
