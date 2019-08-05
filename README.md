@@ -1,3 +1,5 @@
+Before run app need to add Dark Sky api key to process.env.REACT_APP_API_KEY variable
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
