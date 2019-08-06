@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
+import _get from "lodash/get";
 import { bindActionCreators } from "redux";
 import cities from "cities.json";
 import countries from "../helpers/countries.json";
@@ -40,6 +41,7 @@ class Main extends React.Component {
         selectedCountry: null,
         selectedCity: null,
         err: null,
+        selectedOpened: false,
     };
 
     componentDidMount() {
@@ -105,15 +107,26 @@ class Main extends React.Component {
         }));
     };
 
+    toggleSelected = () => {
+        this.setState({ selectedOpened: !this.state.selectedOpened });
+    };
+
     render() {
-        const { selectedCountry, selectedCity, err } = this.state;
+        const {
+            selectedCountry,
+            selectedCity,
+            selectedOpened,
+            err,
+        } = this.state;
         const { weather, currentWeather } = this.props;
+        const dailyWeather = _get(weather, "daily.data", []);
 
         return (
             <MainContainer>
                 {err && <ErrorBox>{err}</ErrorBox>}
                 {currentWeather && (
                     <WeatherBox
+                        title="Current"
                         src={`./icons/${currentWeather.currently.icon}.svg`}
                         temperature={currentWeather.currently.temperature}
                         time={currentWeather.currently.time}
@@ -142,14 +155,30 @@ class Main extends React.Component {
                 )}
                 {weather && (
                     <WeatherBox
+                        title="Current"
                         src={`./icons/${weather.currently.icon}.svg`}
                         temperature={weather.currently.temperature}
                         time={weather.currently.time}
                         timezone={selectedCity.label}
                         windSpeed={weather.currently.windSpeed}
                         summary={weather.currently.summary}
+                        onClick={this.toggleSelected}
+                        hover
+                        toggle
                     />
                 )}
+                {weather &&
+                    selectedOpened &&
+                    dailyWeather.map((item, i) => (
+                        <WeatherBox
+                            key={i}
+                            time={item.time}
+                            temperature={item.temperatureHigh}
+                            windSpeed={item.windSpeed}
+                            src={`./icons/${item.icon}.svg`}
+                            summary={item.summary}
+                        />
+                    ))}
             </MainContainer>
         );
     }
