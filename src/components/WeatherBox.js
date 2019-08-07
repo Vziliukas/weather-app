@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import styled from "styled-components";
 import moment from "moment";
 import { convertToCelcius } from "../helpers";
@@ -58,7 +59,7 @@ const Icon = styled.img.attrs(({ src }) => ({
     width: ${({ width }) => (width ? `${width}` : "64px")};
     height: ${({ height }) => (height ? `${height}` : "64px")};
 `;
-export default ({ title, src, temperature, time, timezone, windSpeed, summary, toggle, ...rest }) => (
+const WeatherBox = ({ title, src, temperature, time, timezone, windSpeed, summary, toggle, ...rest }) => (
     <Container {...rest} >
         {title && <h3>{title}</h3>}
         <p>{moment(time * 1000).format('LLLL')}</p>
@@ -75,3 +76,18 @@ export default ({ title, src, temperature, time, timezone, windSpeed, summary, t
         {toggle && <Arrow />}
     </Container>
 );
+
+WeatherBox.propTypes = {
+    title: PropTypes.string,
+    time: PropTypes.number.isRequired,
+    src: PropTypes.string.isRequired,
+    summary: PropTypes.string.isRequired,
+    temperature: PropTypes.number.isRequired,
+    windSpeed: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+      ]),
+    
+}
+
+export default WeatherBox;
